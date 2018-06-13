@@ -4,9 +4,9 @@ var coordinateService = require("./coordinates.service");
 // Get list of coordinates
 exports.fetchAll = function (req, res) {
 
-    var coods = coordinateService.getCoordinates();
+    var coordinates = coordinateService.getCoordinates();
 
-    return res.status(200).json(coods);
+    return res.status(200).json(coordinates);
 };
 
 // Save coordinates

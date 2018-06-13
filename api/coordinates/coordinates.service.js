@@ -16,7 +16,6 @@ exports.getCoordinates = function () {
 
     fs.exists(filename, function (exists) {
         if (exists) {
-            console.log("Name", filename);
             fs.readFile(filename, function readFileCallback(err, data) {
                 obj = JSON.parse(data);
                 return obj.list;
@@ -26,6 +25,7 @@ exports.getCoordinates = function () {
         return [];
 
     });
+
 
     return obj.list;
 
@@ -44,7 +44,7 @@ exports.saveCoordinates = function (coordinates) {
 
     fs.exists(filename, function (exists) {
         if (exists) {
-            fs.readFile(filename, 'utf8', function readFileCallback(err, data){
+            fs.readFile(filename, 'utf8', function readFileCallback(err, data) {
                 obj = JSON.parse(data);
                 obj.list.push(coordinates);
 
@@ -55,7 +55,7 @@ exports.saveCoordinates = function (coordinates) {
         } else {
             obj.list.push(coordinates);
 
-            fs.writeFile(filename, obj.stringify, {spaces:2}, function(err){
+            fs.writeFile(filename, obj.stringify, {spaces: 2}, function (err) {
                 console.log(err);
             });
 
