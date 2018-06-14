@@ -14,8 +14,9 @@ var router = express.Router();
 
 var controller = require('./coordinates.controller');
 
-router.get('/', controller.fetchAll);
 router.post('/', controller.create);
+router.get('/', controller.fetchAll);
+router.get('/:id', controller.getById);
 
 // router.put('/:id', controller.update);
 // router.patch('/:id', controller.update);

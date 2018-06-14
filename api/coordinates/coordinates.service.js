@@ -1,34 +1,9 @@
 'use strict';
 
-var fs = require('fs');
-var filename = "coordinates.json";
+var _ = require("lodash");
 
-/**
- * Reads all the coordinates for the file
- *
- * @returns {Array}
- */
-exports.getCoordinates = function () {
-
-    var obj = {
-        list: []
-    };
-
-    fs.exists(filename, function (exists) {
-        if (exists) {
-            fs.readFile(filename, function readFileCallback(err, data) {
-                obj = JSON.parse(data);
-                return obj.list;
-            });
-        }
-
-        return [];
-
-    });
-
-
-    return obj.list;
-
+var store = {
+    list: []
 };
 
 /**
@@ -38,32 +13,29 @@ exports.getCoordinates = function () {
  */
 exports.saveCoordinates = function (coordinates) {
 
-    var obj = {
-        list: coordinates
-    };
+    store.list = coordinates;
+};
 
-    fs.exists(filename, function (exists) {
-        if (exists) {
-            fs.readFile(filename, 'utf8', function readFileCallback(err, data) {
-                obj = JSON.parse(data);
-                obj.list.push(coordinates);
+/**
+ * Reads all the coordinates for the file
+ *
+ * @returns {Array}
+ */
+exports.getCoordinates = function () {
 
-                var json = JSON.stringify(obj);
-                fs.writeFile(filename, json);
-            });
+    return store.list;
+};
 
-        } else {
-            obj.list.push(coordinates);
+/**
+ * find a coordinate by it's ID
+ *
+ * @param {string} id
+ */
+exports.getCoordinatesById = function (id) {
 
-            fs.writeFile(filename, obj.stringify, {spaces: 2}, function (err) {
-                console.log(err);
-            });
-
-
-        }
-
-    });
+    return _.find(store.list, function(coordinate) {return coordinate.id === parseInt(id)});
 
 };
+
 
 
